@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+ <head>
+
+ <meta charset="utf-8"/>
+
+ <title>
+
+ Resume Builder
+
+ </title>
+
+ 
+
+ </head>
+
+ <body>
+
+
+
+ <form>
+
+ <div class="form__header">
+
+ <h1>
+
+ Build Your Resume
+
+ </h1>
+
+ <p>
+
+ Dashboard
+
+ </p>
+
+ </div>
+
+ 
+ {% if user.is_authenticated %}
+ <a class="button" style="background-color:red;" href="{% url 'logout' %}"> Logout </a>
+ {% else %}
+ <a class="button" style="background-color:red;" href="{% url 'login' %}"> Login </a>
+ {% endif %}
+ </form>
+
+ <!-- partial -->
+
+ <script src="{% static './script.js' %}">
+
+ </script>
+
+ </body>
+
+</html>
