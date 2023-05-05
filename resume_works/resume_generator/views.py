@@ -13,9 +13,9 @@ def dashboard(request):
 	return render(request,'resume_generator/dashboard.html')
 
 @login_required
-def skills_list(request):
+def coding_skills_list(request):
     coding_skills = CodingSkill.objects.all()
-    return render(request,'resume_generator/skills_list.html',{'coding_skills':coding_skills})
+    return render(request,'resume_generator/coding_skills_list.html',{'coding_skills':coding_skills})
 
 @login_required
 def create_skill(request):
