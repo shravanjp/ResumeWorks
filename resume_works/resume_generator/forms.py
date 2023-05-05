@@ -1,9 +1,9 @@
 from django import forms
-from .models import CodingSkills, Tools
+from .models import CodingSkill, Tool
 
 class CodingSkillForm(forms.ModelForm):
     class Meta:
-        model = CodingSkills
+        model = CodingSkill
         fields = ['name']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),

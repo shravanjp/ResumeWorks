@@ -14,20 +14,20 @@ def dashboard(request):
 
 @login_required
 def skills_list(request):
-    coding_skills = CodingSkills.objects.all()
+    coding_skills = CodingSkill.objects.all()
     return render(request,'resume_generator/skills_list.html',{'coding_skills':coding_skills})
 
 @login_required
 def create_skill(request):
-    coding_skills = CodingSkills.objects.all()
+    coding_skills = CodingSkill.objects.all()
     if request.method == 'POST':
         form = CodingSkillForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
             name = ("").join([x.lower() for x in name]) 
 
-            if not CodingSkills.objects.filter(name=name).exists():
-                coding_skill_model = CodingSkills(name=name)
+            if not CodingSkill.objects.filter(name=name).exists():
+                coding_skill_model = CodingSkill(name=name)
                 coding_skill_model.save()
                 messages.success(request, 'Skill added successfully!')
             else:
