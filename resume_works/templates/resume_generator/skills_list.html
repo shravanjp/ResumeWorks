@@ -1,0 +1,56 @@
+{% extends 'resume_generator/base.html' %}
+
+{% block title %}Coding Skills{% endblock %}
+
+{% block content %}
+<style>
+  h1 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+  }
+
+  .container {
+    background-color: #fff;
+    color: #212529;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* .btn-primary {
+      background-color: #fff;
+      color: #212529;
+      border-color: #fff;
+    } */
+
+  .btn-primary {
+    background-color: rgb(32, 78, 207);
+    color: #fff;
+    border-color: #fff;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <h1>Coding Skills</h1>
+    
+    <button type="button" class="btn btn-success mb-3" onclick="location.href='/coding_skills/add_skill/'">Add Coding
+      Skill</button>
+    <ul class="list-group" style="height: 60vh; overflow-y: auto;">
+      {% for skill in skills %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{skill}}
+        <div>
+          <button type="button" class="btn btn-primary me-2">Edit</button>
+          <button type="button" class="btn btn-danger">Delete</button>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+  <!-- Bootstrap JavaScript -->
+</body>
+
+</html>
+
+{% endblock %}
