@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .forms import CreateUserForm
+from .forms import CustomUserCreationForm
 # Create your views here.
 
 
@@ -14,11 +14,11 @@ def registerPage(request):
 		message.delete()
 		messages.info(request,"")
 	if request.user.is_authenticated:
-		return redirect('/home/')
+		return redirect('home')
 	else:
-		form = CreateUserForm()
+		form = CustomUserCreationForm()
 		if request.method == 'POST':
-			form = CreateUserForm(request.POST)
+			form = CustomUserCreationForm(request.POST)
 			if form.is_valid():
 				form.save()
 				user = form.cleaned_data.get('username')
@@ -34,7 +34,7 @@ def registerPage(request):
 
 def loginPage(request):
 	if request.user.is_authenticated:
-		return redirect('/home/')
+		return redirect('home')
 	else:
 		if request.method == 'POST':
 			username = request.POST.get('username')
