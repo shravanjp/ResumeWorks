@@ -18,7 +18,7 @@ def coding_skills_list(request):
     return render(request,'resume_generator/coding_skills_list.html',{'coding_skills':coding_skills})
 
 @login_required
-def create_skill(request):
+def create_coding_skill(request):
     coding_skills = CodingSkill.objects.all()
     if request.method == 'POST':
         form = CodingSkillForm(request.POST)
@@ -32,7 +32,7 @@ def create_skill(request):
                 messages.success(request, 'Skill added successfully!')
             else:
                 messages.error(request, 'Skill already exists!')
-            return redirect('create_skill')
+            return redirect('create_coding_skill')
 
         else:
             messages.info(request, form.errors)
@@ -41,7 +41,7 @@ def create_skill(request):
             #     'form': form,
             #     'skills': skills
             # }
-            return render(request, 'resume_generator/create_skill.html', {'form':form})
+            return render(request, 'resume_generator/create_coding_skill.html', {'form':form})
     else:
         print("2nd part")
         form = CodingSkillForm()
@@ -49,6 +49,9 @@ def create_skill(request):
             'form': form,
             'coding_skills': coding_skills
         }
-        return render(request, 'resume_generator/create_skill.html', context)
+        return render(request, 'resume_generator/create_coding_skill.html', context)
 
 
+# @login_required
+# def delete_skill(request):
+    
