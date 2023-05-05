@@ -39,7 +39,7 @@
     <ul class="list-group" style="height: 60vh; overflow-y: auto;">
       {% for coding_skill in coding_skills %}
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        {{coding_skill}}
+        {{coding_skill.name}}
         <div>
           <button type="button" class="btn btn-primary me-2" onclick="location.href='/coding_skills/edit_skill/'">Edit</button>
           <button type="button" class="btn btn-danger" onclick="location.href='/coding_skills/create_skill/'" >Delete</button>

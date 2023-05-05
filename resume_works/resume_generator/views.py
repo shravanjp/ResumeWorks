@@ -14,12 +14,12 @@ def dashboard(request):
 
 @login_required
 def skills_list(request):
-    skills = CodingSkills.objects.all()
-    return render(request,'resume_generator/skills_list.html',{'skills':skills})
+    coding_skills = CodingSkills.objects.all()
+    return render(request,'resume_generator/skills_list.html',{'coding_skills':coding_skills})
 
 @login_required
 def create_skill(request):
-    skills = CodingSkills.objects.all()
+    coding_skills = CodingSkills.objects.all()
     if request.method == 'POST':
         form = CodingSkillForm(request.POST)
         if form.is_valid():
@@ -27,8 +27,8 @@ def create_skill(request):
             name = ("").join([x.lower() for x in name]) 
 
             if not CodingSkills.objects.filter(name=name).exists():
-                skill_model = CodingSkills(name=name)
-                skill_model.save()
+                coding_skill_model = CodingSkills(name=name)
+                coding_skill_model.save()
                 messages.success(request, 'Skill added successfully!')
             else:
                 messages.error(request, 'Skill already exists!')
@@ -44,10 +44,10 @@ def create_skill(request):
             return render(request, 'resume_generator/create_skill.html', {'form':form})
     else:
         print("2nd part")
-        form = SkillForm()
+        form = CodingSkillForm()
         context = {
             'form': form,
-            'skills': skills
+            'coding_skills': coding_skills
         }
         return render(request, 'resume_generator/create_skill.html', context)
 
