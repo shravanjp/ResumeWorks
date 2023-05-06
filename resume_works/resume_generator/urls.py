@@ -12,6 +12,12 @@ urlpatterns = [
     path('coding_skills/create_coding_skill/', views.create_coding_skill, name = 'create_coding_skill'),
     path('coding_skills/edit_coding_skill/<int:coding_skill_id>/', views.edit_coding_skill, name = 'edit_coding_skill'),
     path('coding_skills/delete_coding_skill/<int:coding_skill_id>/', views.delete_coding_skill, name = 'delete_coding_skill'),
+
+    path('tools/', views.tools_list, name='tools_list'),
+    path('tools/create_tool/', views.create_tool, name = 'create_tool'),
+    path('tools/edit_tool/<int:tool_id>/', views.edit_tool, name = 'edit_tool'),
+    path('tools/delete_tool/<int:tool_id>/', views.delete_tool, name = 'delete_tool'),
+
     # path('coding_skills/delete_coding_skill/', views.delete_coding_skill, name = 'delete_coding_skill'),
     
     # path('tools/', views.tool_list, name='tool_list'),

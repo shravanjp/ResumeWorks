@@ -9,4 +9,10 @@ class CodingSkillForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-# class ToolForm
+class ToolForm(forms.ModelForm):
+    class Meta:
+        model = Tool
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
