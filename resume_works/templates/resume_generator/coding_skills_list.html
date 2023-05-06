@@ -41,8 +41,20 @@
       <li class="list-group-item d-flex justify-content-between align-items-center">
         {{coding_skill.name}}
         <div>
-          <button type="button" class="btn btn-primary me-2" onclick="location.href='/coding_skills/edit_coding_skill/'">Edit</button>
-          <button type="button" class="btn btn-danger" onclick="location.href='/coding_skills/delete_coding_skill/{{ coding_skill.id}}'" >Delete</button>
+          <!-- <button type="button" class="btn btn-primary me-2" onclick="location.href='/coding_skills/edit_coding_skill/{{ coding_skill.id }}/'">Edit</button> -->
+          <!-- <button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?'),location.href='/coding_skills/delete_coding_skill/{{ coding_skill.id }}/'">Delete</button> -->
+          
+          
+          <form action="/coding_skills/edit_coding_skill/{{ coding_skill.id }}" method="GET" class="d-inline">
+            <!-- {% csrf_token %} -->
+            <button type="submit" class="btn btn-primary me-2">Edit</button>
+          </form>
+
+          <form action="{% url 'delete_coding_skill' coding_skill.id %}" method="POST" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+          </form>
+
         </div>
       </li>
     {% endfor %}
