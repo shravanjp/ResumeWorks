@@ -1,8 +1,7 @@
 {% extends 'resume_generator/base.html' %}
-
 {% block title %}Coding Skills{% endblock %}
-
 {% block content %}
+
 <style>
   h1 {
     text-align: center;
@@ -16,13 +15,7 @@
     max-width: 600px;
     margin: 0 auto;
   }
-
-  /* .btn-primary {
-      background-color: #fff;
-      color: #212529;
-      border-color: #fff;
-    } */
-
+  
   .btn-primary {
     background-color: rgb(32, 78, 207);
     color: #fff;
@@ -33,34 +26,32 @@
 <body>
   <div class="container">
     <h1>Coding Skills</h1>
-    
-    <button type="button" class="btn btn-success mb-3" onclick="location.href='/coding_skills/create_coding_skill/'">Add Coding
+    <button type="button" class="btn btn-success mb-3" onclick="location.href='/coding_skills/create_coding_skill/'">Add
+      Coding
       Skill</button>
     <ul class="list-group" style="height: 60vh; overflow-y: auto;">
+
+      {% if coding_skills|length == 0 %}
+        <h2>No Coding Skills</h2>
+      {% endif %}
+
       {% for coding_skill in coding_skills %}
       <li class="list-group-item d-flex justify-content-between align-items-center">
         {{coding_skill.name}}
         <div>
-          <!-- <button type="button" class="btn btn-primary me-2" onclick="location.href='/coding_skills/edit_coding_skill/{{ coding_skill.id }}/'">Edit</button> -->
-          <!-- <button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?'),location.href='/coding_skills/delete_coding_skill/{{ coding_skill.id }}/'">Delete</button> -->
-          
-          
           <form action="/coding_skills/edit_coding_skill/{{ coding_skill.id }}" method="GET" class="d-inline">
-            <!-- {% csrf_token %} -->
             <button type="submit" class="btn btn-primary me-2">Edit</button>
           </form>
-
           <form action="{% url 'delete_coding_skill' coding_skill.id %}" method="POST" class="d-inline">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
           </form>
-
         </div>
       </li>
-    {% endfor %}
+      {% endfor %}
+
     </ul>
   </div>
-  <!-- Bootstrap JavaScript -->
 </body>
 
 </html>
