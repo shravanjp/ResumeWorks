@@ -23,7 +23,7 @@ def dashboard(request):
 @login_required
 def coding_skills_list(request):
     coding_skills = CodingSkill.objects.filter(is_deleted=False)
-    return render(request,'resume_generator/coding_skills_list.html',{'coding_skills':coding_skills})
+    return render(request,'resume_generator/coding_skill/coding_skills_list.html',{'coding_skills':coding_skills})
 
 @login_required
 def create_coding_skill(request):
@@ -49,14 +49,14 @@ def create_coding_skill(request):
             #     'form': form,
             #     'skills': skills
             # }
-            return render(request, 'resume_generator/create_coding_skill.html', {'form':form})
+            return render(request, 'resume_generator/coding_skill/create_coding_skill.html', {'form':form})
     else:
         form = CodingSkillForm()
         context = {
             'form': form,
             'coding_skills': coding_skills
         }
-        return render(request, 'resume_generator/create_coding_skill.html', context)
+        return render(request, 'resume_generator/coding_skill/create_coding_skill.html', context)
 
 
 @login_required
@@ -86,7 +86,7 @@ def edit_coding_skill(request, coding_skill_id):
             'form': form,
             'coding_skill': coding_skill,
         }
-        return render(request, 'resume_generator/edit_coding_skill.html', context)
+        return render(request, 'resume_generator/coding_skill/edit_coding_skill.html', context)
 
 @login_required
 def delete_coding_skill(request, coding_skill_id):
@@ -101,7 +101,7 @@ def delete_coding_skill(request, coding_skill_id):
 @login_required
 def tools_list(request):
     tools = Tool.objects.filter(is_deleted=False)
-    return render(request,'resume_generator/tools_list.html',{'tools':tools})
+    return render(request,'resume_generator/tool/tools_list.html',{'tools':tools})
 
 @login_required
 def create_tool(request):
@@ -123,14 +123,14 @@ def create_tool(request):
         else:
             messages.info(request, form.errors)
             messages.error(request, 'Invalid form data!')
-            return render(request, 'resume_generator/create_tool.html', {'form':form})
+            return render(request, 'resume_generator/tool/create_tool.html', {'form':form})
     else:
         form = ToolForm()
         context = {
             'form': form,
             'tools': tools
         }
-        return render(request, 'resume_generator/create_tool.html', context)
+        return render(request, 'resume_generator/tool/create_tool.html', context)
 
 
 @login_required
@@ -158,7 +158,7 @@ def edit_tool(request, tool_id):
             'form': form,
             'tool': tool,
         }
-        return render(request, 'resume_generator/edit_tool.html', context)
+        return render(request, 'resume_generator/tool/edit_tool.html', context)
 
 @login_required
 def delete_tool(request, tool_id):
