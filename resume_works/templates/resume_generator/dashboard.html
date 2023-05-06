@@ -1,8 +1,5 @@
-
 {% extends 'resume_generator/base.html' %}
-
 {% block title %}Dashboard{% endblock %}
-
 {% block content %}
 
 <style>
@@ -21,7 +18,7 @@
             <div class="card bg-danger text-white mb-4">
                 <div class="card-body">
                     <h5 class="card-title font-weight-bold">Employees</h5>
-                    <p class="card-text display-4 font-weight-bold">25</p>
+                    <p class="card-text display-4 font-weight-bold">{{ employees_len }}</p>
                 </div>
             </div>
         </div>
@@ -29,7 +26,7 @@
             <div class="card bg-success text-white mb-4">
                 <div class="card-body">
                     <h5 class="card-title font-weight-bold">Projects</h5>
-                    <p class="card-text display-4 font-weight-bold">10</p>
+                    <p class="card-text display-4 font-weight-bold">{{ projects_len }}</p>
                 </div>
             </div>
         </div>
@@ -37,7 +34,7 @@
             <div class="card bg-primary text-white mb-4">
                 <div class="card-body">
                     <h5 class="card-title font-weight-bold">Coding Skills</h5>
-                    <p class="card-text display-4 font-weight-bold">{{coding_skills_len}}</p>
+                    <p class="card-text display-4 font-weight-bold">{{ coding_skills_len }}</p>
                 </div>
             </div>
         </div>
@@ -45,7 +42,7 @@
             <div class="card bg-warning text-white mb-4">
                 <div class="card-body">
                     <h5 class="card-title font-weight-bold">Tools</h5>
-                    <p class="card-text display-4 font-weight-bold">{{tools_len}}</p>
+                    <p class="card-text display-4 font-weight-bold">{{ tools_len }}</p>
                 </div>
             </div>
         </div>
