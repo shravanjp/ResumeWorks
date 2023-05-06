@@ -1,0 +1,55 @@
+{% extends 'resume_generator/base.html' %}
+{% block title %}Tools{% endblock %}
+{% block content %}
+<style>
+    h1 {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 50px;
+    }
+
+    .container {
+        background-color: #fff;
+        color: #212529;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .btn-primary {
+        background-color: rgb(32, 78, 207);
+        color: #fff;
+        border-color: #fff;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Tools</h1>
+        <button type="button" class="btn btn-success mb-3" onclick="location.href='/tools/create_tool/'">Add
+            Tool</button>
+        <ul class="list-group" style="height: 60vh; overflow-y: auto;">
+            {% if tools|length == 0 %}
+                <h2>No Tools</h2>
+            {% endif %}
+            {% for tool in tools %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{tool.name}}
+                <div>
+                    <form action="/tools/edit_tool/{{ tool.id }}" method="GET" class="d-inline">
+                        <!-- {% csrf_token %} -->
+                        <button type="submit" class="btn btn-primary me-2">Edit</button>
+                    </form>
+                    <form action="{% url 'delete_tool' tool.id %}" method="POST" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+</html>
+{% endblock %}
