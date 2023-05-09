@@ -3,7 +3,7 @@
 {% block content %}
 
 <style>
-    .container{
+    .container {
         padding-top: 10%;
         /* margin-left: 14vw; */
         /* display: flex;
@@ -13,41 +13,83 @@
     }
 </style>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card bg-danger text-white mb-4">
-                <div class="card-body">
-                    <h5 class="card-title font-weight-bold">Employees</h5>
-                    <p class="card-text display-4 font-weight-bold">{{ employees_len }}</p>
+
+<body onload="load()">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Employees</h5>
+                        <p id="emps" class="card-text display-4 font-weight-bold">{{ employees_len }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-5">
-            <div class="card bg-success text-white mb-4">
-                <div class="card-body">
-                    <h5 class="card-title font-weight-bold">Projects</h5>
-                    <p class="card-text display-4 font-weight-bold">{{ projects_len }}</p>
+            <div class="col-md-5">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Projects</h5>
+                        <p id="projects" class="card-text display-4 font-weight-bold">{{ projects_len }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-5">
-            <div class="card bg-primary text-white mb-4">
-                <div class="card-body">
-                    <h5 class="card-title font-weight-bold">Coding Skills</h5>
-                    <p class="card-text display-4 font-weight-bold">{{ coding_skills_len }}</p>
+            <div class="col-md-5">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Coding Skills</h5>
+                        <p id="skills" class="card-text display-4 font-weight-bold">{{ coding_skills_len }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-5">
-            <div class="card bg-warning text-white mb-4">
-                <div class="card-body">
-                    <h5 class="card-title font-weight-bold">Tools</h5>
-                    <p class="card-text display-4 font-weight-bold">{{ tools_len }}</p>
+            <div class="col-md-5">
+                <div class="card bg-warning text-white mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Tools</h5>
+                        <p id="tools" class="card-text display-4 font-weight-bold">{{ tools_len }}</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <script>
+        function animate(obj, initVal, lastVal, duration) {
+            let startTime = null;
+            let currentTime = Date.now();
+            const step = (currentTime) => {
+                if (!startTime) {
+                    startTime = currentTime;
+                }
+                const progress = Math.min((currentTime - startTime) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (lastVal - initVal) + initVal);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    window.cancelAnimationFrame(window.requestAnimationFrame(step));
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        let text1 = document.getElementById('emps');
+        let text2 = document.getElementById('projects');
+        let text3 = document.getElementById('skills');
+        let text4 = document.getElementById('tools');
+
+        const load = () => {
+            let empsCount = {{ employees_len }};
+            let projectsCount = {{ projects_len }};
+            let skillsCount = {{ coding_skills_len }};
+            let toolsCount = {{ tools_len }};
+            animate(text2, 0, empsCount, 750);
+            animate(text2, 0, projectsCount, 750);
+            animate(text3, 0, skillsCount, 750);
+            animate(text4, 0, toolsCount, 750);
+        }
+    </script>
+
+
+</body>
+
 
 {% endblock %}
