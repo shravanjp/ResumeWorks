@@ -1,0 +1,90 @@
+{% extends 'resume_generator/base.html' %}
+{% block title %}Add Project{% endblock %}
+{% block content %}
+
+<head>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <style>
+    .editor {
+      height: 40vh;
+    }
+
+    .sidebar {
+    /* background-color: #f1f1f1; */
+    /* height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0; */
+    /* width: 450px; */
+    /* overflow: hidden; */
+  }
+
+/* .container{
+      margin-left: 100px;
+} */
+  /* form{
+    overflow-y: scroll;
+  } */
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Bootstrap Form Example</h2>
+    <form>
+
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" placeholder="Enter name">
+      </div>
+
+      <div class="form-group">
+        <label for="designation">Designation:</label>
+        <select class="form-control" id="designation">
+          <!-- Pass values for dropdown options -->
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+          <option value="option3">Option 3</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" id="description" rows="5"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="roles_responsibility">Roles & Responsibility:</label>
+        <div class="editor">
+          <!-- Use Quill.js for the rich text editor -->
+          <div id="roles_responsibility"></div>
+        </div>
+      </div>
+      <!-- <hr><hr><hr> -->
+      <div class="form-group" style="margin-top: 10vh;display : flex; justify-content: center;">
+        <!-- Add a reset button -->
+        <button type="reset" class="btn btn-default">Reset</button>
+        <!-- Move the submit button to the bottom of the form -->
+        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Include Bootstrap JS -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
+  <script>
+    var quill = new Quill('#roles_responsibility', {
+      theme: 'snow'
+    });
+  </script>
+</body>
+
+</html>
+
+
+{% endblock %}

@@ -49,7 +49,7 @@ def edit_tool_view(request, tool_id):
             name = form.cleaned_data['name']
             name = ("").join([x.lower() for x in name]) 
             if not Tool.objects.filter(is_deleted=False, name=name).exists():
-                tool_model = form.save()
+                form.save()
                 messages.success(request, 'Tool updated successfully!')
             else:
                 messages.error(request, 'Skill already exists!')

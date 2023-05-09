@@ -1,0 +1,76 @@
+# from django.shortcuts import render, redirect, get_object_or_404
+# from django.contrib.auth.decorators import login_required
+# from django.contrib import messages
+# from ..models import *
+# from ..forms import ToolForm
+
+
+# @login_required
+# def projects_list_view(request):
+#     # tools = Tool.objects.filter(is_deleted=False)
+#     return render(request,'resume_generator/project/projects_list.html')
+
+# @login_required
+# def create_project_view(request):
+#     tools = Tool.objects.filter(is_deleted=False)
+#     if request.method == 'POST':
+#         form = ToolForm(request.POST)
+#         if form.is_valid():
+#             name = form.cleaned_data['name']
+#             name = ("").join([x.lower() for x in name]) 
+
+#             if not Tool.objects.filter(is_deleted=False, name=name).exists():
+#                 tool_model = Tool(name=name)
+#                 tool_model.save()
+#                 messages.success(request, 'Tool added successfully!')
+#             else:
+#                 messages.error(request, 'Tool already exists!')
+#             return redirect('create_tool')
+
+#         else:
+#             messages.info(request, form.errors)
+#             messages.error(request, 'Invalid form data!')
+#             return render(request, 'resume_generator/tool/create_tool.html', {'form':form})
+#     else:
+#         form = ToolForm()
+#         context = {
+#             'form': form,
+#             'tools': tools
+#         }
+#     return render(request, 'resume_generator/project/create_project.html')
+
+
+# @login_required
+# def edit_project_view(request, tool_id):
+#     tool = get_object_or_404(Tool, id=tool_id)
+#     if request.method == 'POST':
+#         form = ToolForm(request.POST, instance=tool)
+#         if form.is_valid():
+#             name = form.cleaned_data['name']
+#             name = ("").join([x.lower() for x in name]) 
+#             if not Tool.objects.filter(is_deleted=False, name=name).exists():
+#                 tool_model = form.save()
+#                 messages.success(request, 'Tool updated successfully!')
+#             else:
+#                 messages.error(request, 'Skill already exists!')
+#             return redirect('tools_list')
+#         else:
+#             messages.error(request,"Invalid Form data")
+#             return redirect('tools_list')
+
+#     else:
+#         initial_data = {'name': tool.name} # set initial data for the name field
+#         form = ToolForm(instance=tool, initial=initial_data)
+#         context = {
+#             'form': form,
+#             'tool': tool,
+#         }
+#         return render(request, 'resume_generator/tool/edit_tool.html', context)
+
+# @login_required
+# def delete_project_view(request, tool_id):
+#     if request.method == 'POST':
+#         tool = get_object_or_404(Tool, id=tool_id)
+#         tool.is_deleted = True
+#         tool.save()
+#     return redirect('tools_list')

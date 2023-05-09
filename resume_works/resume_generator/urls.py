@@ -2,6 +2,8 @@ from django.urls import path
 from .views.dashboard_view import *
 from .views.coding_skills_view import *
 from .views.tools_view import *
+# from .views.projects_view import *
+from .views.designations_view import *
 
 urlpatterns = [
     path('', home_view, name = 'home'),
@@ -19,11 +21,16 @@ urlpatterns = [
     path('tools/edit_tool/<int:tool_id>/', edit_tool_view, name = 'edit_tool'),
     path('tools/delete_tool/<int:tool_id>/', delete_tool_view, name = 'delete_tool'),
 
+    path('designations/', designations_list_view, name='designations_list'),
+    path('designations/create_designation/', create_designation_view, name = 'create_designation'),
+    path('designations/edit_designation/<int:designation_id>/', edit_designation_view, name = 'edit_designation'),
+    path('designations/delete_designation/<int:designation_id>/', delete_designation_view, name = 'delete_designation'),
+
     #project
-    # path('projects/', views.projects_list, name='projects_list'),
-    # path('projects/create_tool/', views.create_project, name = 'create_project'),
-    # path('projects/edit_project/<int:project_id>/', views.edit_project, name = 'edit_project'),
-    # path('projects/delete_project/<int:project_id>/', views.delete_project, name = 'delete_project'),
+    # path('projects/', projects_list_view, name='projects_list'),
+    # path('projects/create_project/', create_project_view, name = 'create_project'),
+    # path('projects/edit_project/<int:project_id>/', edit_project_view, name = 'edit_project'),
+    # path('projects/delete_project/<int:project_id>/', delete_project_view, name = 'delete_project'),
 
     
     # path('generate-resume/<int:pk>/', views.generate_resume, name='generate_resume'),

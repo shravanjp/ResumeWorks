@@ -1,0 +1,60 @@
+{% extends 'resume_generator/base.html' %}
+{% block title %}Edit Designation{% endblock %}
+{% block content %}
+</head>
+<style>
+    h1 {
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .container {
+        background-color: #fff;
+        color: rgb(0, 0, 0);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        background-color: grey;
+        color: #fff;
+        border-color: #fff;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var messages = document.getElementById("messages");
+        if (messages) {
+            setTimeout(function () {
+                messages.remove();
+            }, 3000);
+        }
+    });
+</script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Tools</h1>
+        <div class="shadow p-3 mb-5 bg-body rounded form-container">
+            <form method="POST" action="/designations/edit_designation/{{ designation.id }}/">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{ form.name.id_for_label }}" class="form-label">Edit Tool</label>
+                    {{ form.name }}
+                </div>
+                <button type="submit" class="btn btn-success">Edit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </form>
+        </div>
+        {% for message in messages %}
+        <p id="messages">{{message}}</p>
+        {% endfor %}
+    </div>
+    {% endblock %}
