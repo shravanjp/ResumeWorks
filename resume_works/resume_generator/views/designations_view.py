@@ -17,9 +17,7 @@ def create_designation_view(request):
         form = DesignationForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
-            name = ("").join([x.lower() for x in name]) 
-
-            if not Designation.objects.filter(is_deleted=False, name=name).exists():
+            if not Designation.objects.filter(is_deleted=False, name__iexact=name).exists():
                 designation_model = Designation(name=name)
                 designation_model.save()
                 messages.success(request, 'Designation added successfully!')
@@ -47,8 +45,7 @@ def edit_designation_view(request, designation_id):
         form = DesignationForm(request.POST, instance=designation)
         if form.is_valid():
             name = form.cleaned_data['name']
-            name = ("").join([x.lower() for x in name]) 
-            if not Designation.objects.filter(is_deleted=False, name=name).exists():
+            if not Designation.objects.filter(is_deleted=False, name__iexact=name).exists():
                 form.save()
                 messages.success(request, 'Designation updated successfully!')
             else:

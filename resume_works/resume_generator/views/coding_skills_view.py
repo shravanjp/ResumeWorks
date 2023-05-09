@@ -17,9 +17,8 @@ def create_coding_skill_view(request):
         form = CodingSkillForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
-            name = ("").join([x.lower() for x in name]) 
 
-            if not CodingSkill.objects.filter(is_deleted=False, name=name).exists():
+            if not CodingSkill.objects.filter(is_deleted=False, name__iexact=name).exists():
                 coding_skill_model = CodingSkill(name=name)
                 coding_skill_model.save()
                 messages.success(request, 'Skill added successfully!')
@@ -49,8 +48,7 @@ def edit_coding_skill_view(request, coding_skill_id):
         print(form)
         if form.is_valid():
             name = form.cleaned_data['name']
-            name = ("").join([x.lower() for x in name]) 
-            if not CodingSkill.objects.filter(is_deleted=False, name=name).exists():
+            if not CodingSkill.objects.filter(is_deleted=False, name__iexact=name).exists():
                 coding_skill_model = form.save()
                 messages.success(request, 'Skill updated successfully!')
             else:

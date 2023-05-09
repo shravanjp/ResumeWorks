@@ -17,9 +17,7 @@ def create_tool_view(request):
         form = ToolForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
-            name = ("").join([x.lower() for x in name]) 
-
-            if not Tool.objects.filter(is_deleted=False, name=name).exists():
+            if not Tool.objects.filter(is_deleted=False, name__iexact=name).exists():
                 tool_model = Tool(name=name)
                 tool_model.save()
                 messages.success(request, 'Tool added successfully!')
@@ -47,11 +45,11 @@ def edit_tool_view(request, tool_id):
         form = ToolForm(request.POST, instance=tool)
         if form.is_valid():
             name = form.cleaned_data['name']
-            name = ("").join([x.lower() for x in name]) 
-            if not Tool.objects.filter(is_deleted=False, name=name).exists():
+            if not Tool.objects.filter(is_deleted=False, name__iexact=name).exists() :
                 form.save()
                 messages.success(request, 'Tool updated successfully!')
             else:
+                
                 messages.error(request, 'Skill already exists!')
             return redirect('tools_list')
         else:
