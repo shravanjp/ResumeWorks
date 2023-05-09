@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from ..models import CodingSkill, Tool
+from ..models import CodingSkill, Tool, Project
 
 @login_required(login_url='accounts/login/')
 def home_view(request):
@@ -11,7 +11,7 @@ def home_view(request):
 def dashboard_view(request):
     coding_skills_len = len(CodingSkill.objects.filter(is_deleted=False))
     tools_len = len(Tool.objects.filter(is_deleted=False))
-    projects_len = 0
+    projects_len = len(Project.objects.filter(is_deleted=False))
     employees_len = 0
     context = {
         'coding_skills_len': coding_skills_len,
