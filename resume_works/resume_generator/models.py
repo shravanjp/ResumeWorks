@@ -28,25 +28,25 @@ class Designation(models.Model):
         return self.name
 
 
-# class Project(models.Model):
-#     name = models.CharField(max_length=255)
-#     description = models.TextField()
-#     tools_used = models.ManyToManyField(Tool, related_name='projects')
-#     coding_skills_used = models.ManyToManyField(CodingSkill, related_name='projects')
-#     roles_responsibility = models.TextField()
-#     start_date = models.DateField()
-#     end_date = models.DateField(null=True, blank=True)
-#     PROJECT_STATUS_CHOICES = (
-#         ('active', 'Active'),
-#         ('close', 'Close'),
-#     )
-#     status = models.CharField(max_length=10, choices=PROJECT_STATUS_CHOICES,default='active')
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-#     is_deleted = models.BooleanField(default=False)
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    tools_used = models.ManyToManyField(Tool, related_name='projects')
+    coding_skills_used = models.ManyToManyField(CodingSkill, related_name='projects')
+    roles_responsibility = models.TextField()
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
+    PROJECT_STATUS_CHOICES = (
+        ('active', 'Active'),
+        ('close', 'Closed'),
+    )
+    status = models.CharField(max_length=10, choices=PROJECT_STATUS_CHOICES,default='active')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_deleted = models.BooleanField(default=False)
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
 
 # class Employee(models.Model):
 #     name = models.CharField(max_length=50)

@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<style>
 
-h1 {
+<style>
+    h1 {
         text-align: center;
         margin-top: 15px;
         margin-bottom: 40px;
@@ -14,7 +14,7 @@ h1 {
         background-color: #fff;
         color: #212529;
         /* max-width: 600px; */
-        
+
         margin: 0 auto;
         /* margin-left: 14vw; */
     }
@@ -38,7 +38,7 @@ h1 {
     th {
         border: 0px solid #dddddd;
         text-align: center;
-        
+
     }
 
     td {
@@ -46,53 +46,77 @@ h1 {
         text-align: center;
         padding: 8px;
     }
-    
 
-    .table thead th{
-        top:0;
+
+    .table thead th {
+        top: 0;
         position: sticky;
         background-color: #dddddd;
-        
-}
+    }
+
+    /* .table-responsive {
+    max-width: 1800px; /* Change this to your desired max width */
+    /* margin: 0 auto;
+    overflow-x: auto;
+    } */
+
+    
 </style>
+
 <body>
+
     <div class="container">
         <h1>Projects</h1>
         <button type="button" class="btn btn-success mb-3" onclick="location.href='/projects/create_project/'">Add
             Project</button>
-            <div style="height: 60vh; overflow-y: auto;">
-                <!-- <div> -->
-                <table class="table" >
+            <div class="table-responsive">
+                <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th style="width: 5%">ID</th>
-                            <th style="width: 32%">Name</th>
-                            <th style="width: 32%">Technology Used</th>
-                            <th style="width: 21%">Actions</th>
+                            <th style="width: 4%">ID</th>
+                            <th style="width: 19%">Name</th>
+                            <th style="width: 29%">Technology Used</th>
+                            <th style="width: 11%">Start Date</th>
+                            <th style="width: 11%">End Date</th>
+                            <th style="width: 9%">Status</th>
+                            <th style="width: 18%">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="scrollable">
-                        {% for project in projects %}
-                        <tr>
-                            <td scope="row">1</td>
-                            <td>ABCsdffffffffffsdfsdfggergeqrger ert ert  q tqertqwerqw</td>
-                            <td>Java,CPP, C, Go, JavaScript, Python</td>
-                            <td>
-                                <a href="#" class="btn btn-primary me-2">
-                                    Edit
-                                </a>
-                                <a href="#" class="btn btn-danger">
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        
-                    </tbody>
-                </table>
-            </div>
-           
-        
+                <tbody class="scrollable">
+                    {% for project in projects %}
+            <tr>
+                <td>{{ project.id }}</td>
+                <td>{{ project.name }}</td>
+                <td>{{ project.tools_used.all|join:', ' }}, {{project.coding_skills_used.all|join:', ' }}</td>
+                <td>{{ project.start_date }}</td>
+                <td>{% if project.status == 'active' and project.end_date is None %}
+                    In Progress
+                {% elif project.status == 'close' and project.end_date is None %}
+                    --------
+                {% else %}
+                    {{ project.end_date }}
+                {% endif %}</td>
+                <td>{{ project.status }}</td>
+
+                <td>
+                    <form action="{% url 'edit_project' project.id %}" method="GET" class="d-inline">
+                        <button type="submit" class="btn btn-primary me-2">Edit</button>
+                    </form>
+                    <form action="{% url 'delete_project' project.id %}" method="POST" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+
     </div>
 
 
