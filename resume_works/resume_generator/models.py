@@ -48,23 +48,24 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
-# class Employee(models.Model):
-#     name = models.CharField(max_length=50)
-#     designation = models.ForeignKey(Designation, on_delete=models.CASCADE)
-#     coding_skills = models.ManyToManyField(CodingSkill)
-#     tools = models.ManyToManyField(Tool)
-#     EMPLOYEE_STATUS_CHOICES = (
-#         ('current', 'Current'),
-#         ('ex', 'Ex'),
-#     )
-#     employee_status = models.CharField(max_length=10, choices=EMPLOYEE_STATUS_CHOICES)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-#     is_deleted = models.BooleanField(default=False)
+class Employee(models.Model):
+    name = models.CharField(max_length=50)
+    designation = models.ForeignKey(Designation, on_delete=models.CASCADE)
+    projects = models.ManyToManyField(Project)
+    professional_summary = models.TextField()
+    coding_skills = models.ManyToManyField(CodingSkill)
+    tools = models.ManyToManyField(Tool)
+    EMPLOYEE_STATUS_CHOICES = (
+        ('current', 'Current'),
+        ('ex', 'Ex'),
+    )
+    employment_status = models.CharField(max_length=10, choices=EMPLOYEE_STATUS_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_deleted = models.BooleanField(default=False)
 
-#     def __str__(self):
-#         return self.name
-
+    def __str__(self):
+        return self.name
 
 # class EmployeeProjectMapping(models.Model):
 #     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)

@@ -1,0 +1,109 @@
+{% extends 'resume_generator/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}View Resume{% endblock %}
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<style>
+	.name {
+		padding-top: 1cm;
+	}
+
+	.designation {
+		padding-top: -0.25cm;
+	}
+
+	.heading {
+		padding-top: 0.5cm;
+		font-size: large;
+		font-weight: bold;
+	}
+
+	.heading1 {
+
+		font-size: large;
+		font-weight: bold;
+	}
+
+	#logo-top {
+		width: 50px;
+		height: 50px;
+	}
+</style>
+
+<div id="pdf-content" style="color:black ;">
+	<div class="logo" style="float:right ;">
+		<img id="logo-top" src="{% static 'images/logo2.png' %}" alt="JumpWhere">
+	</div>
+	<p class="name" style="padding-top: 1cm;display:block;">Name: <b>{{ employee.name }}</b></p>
+	<p class="designation" style="padding-top: -0.25cm;">Designation: <b>{{ employee.designation }}</b></p>
+	<!-- <p class="email" style="padding-top: -0.25cm;">Email: <b>jhravanjp8910@gmail.com</b></p>
+	<p class="phone" style="padding-top: -0.25cm;">Phone: <b>9182372819</b></p>
+	<p class="linkedin" style="padding-top: -0.25cm;">LinkedIn: <b>https://linkedin.com/shravanjp_79</b></p> -->
+	<hr>
+
+	<p class="heading" style="padding-top: 0.5cm;font-size: large;font-weight: bold;">Professional Summary:</p>
+	<ul>
+		{% for sentence in employee.professional_summary|split_sentences %}
+		{% if sentence %}
+		<li>{{ sentence }}.</li>
+		{% endif %}
+		{% endfor %}
+
+	</ul>
+	<p class="heading1" style="padding-top: 0.5cm;font-size: large;font-weight: bold;">Technical Skill Set:</p>
+	<ul>
+		<li><b>Coding: </b>{% for skill in employee.coding_skills.all %}
+			{{ skill }}, {% endfor %}</li>
+		<li><b>Tools:  </b>{% for tool in employee.tools.all %}{{ tool }}, {% endfor %}</li>
+	</ul>
+	<p class="heading1" style="padding-top: 0.5cm;font-size: large;font-weight: bold;">Professional Projects:</p>
+
+
+	{% for project in projects %}
+	<p style="font-size:large;font-weight:bold">Project {{ forloop.counter }}: {{ project.name }}</p>
+	<ul>
+		<li><b>Technology used: </b>{% for coding_skill in project.coding_skills_used.all %}
+			{{ coding_skill }}, {% endfor %}
+			{% for tool in project.tools_used.all %}
+			{{ tool }}
+			{% if not forloop.last %}, 
+			{% endif %}
+			{% endfor %}</li>
+
+		<li><b>Description: </b>{{ project.description }}</li>
+		<li><b>Roles and Responsibilities: </b></li>
+		<ul>
+			{% for responsibility in project.roles_responsibility|split_sentences %}
+			{% if responsibility %}
+			<li>{{ responsibility }}</li>
+			{% endif %}
+			{% endfor %}
+			
+		</ul>
+	</ul>
+	{% endfor %}
+
+
+
+	<!-- ######################################################################### -->
+
+</div>
+<button class="btn btn-sm btn-primary" onclick="downloadPDF()">Download PDF</button>
+<script>
+	function downloadPDF() {
+		const content = document.getElementById('pdf-content');
+
+		html2pdf().set({
+			margin: 1,
+			filename: "{{ employee.name }}'s_Resume.pdf",
+			image: { type: 'jpeg', quality: 0.98 },
+			html2canvas: { scale: 2 },
+			jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
+		}).from(content).save();
+	}
+
+	document.getElementById('download-pdf').addEventListener('click', downloadPDF);
+
+</script>
+{% endblock %}

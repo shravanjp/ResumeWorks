@@ -8,7 +8,11 @@ from ..forms import CodingSkillForm
 @login_required
 def coding_skills_list_view(request):
     coding_skills = CodingSkill.objects.filter(is_deleted=False)
-    return render(request,'resume_generator/coding_skill/coding_skills_list.html',{'coding_skills':coding_skills})
+    logged_in_user = request.user
+    return render(request,'resume_generator/coding_skill/coding_skills_list.html',{
+        'coding_skills':coding_skills,
+        'logged_in_user': logged_in_user,
+    })
 
 @login_required
 def create_coding_skill_view(request):
@@ -32,9 +36,11 @@ def create_coding_skill_view(request):
             return render(request, 'resume_generator/coding_skill/create_coding_skill.html', {'form':form})
     else:
         form = CodingSkillForm()
+        logged_in_user = request.user
         context = {
             'form': form,
-            'coding_skills': coding_skills
+            'coding_skills': coding_skills,
+            'logged_in_user': logged_in_user,
         }
         return render(request, 'resume_generator/coding_skill/create_coding_skill.html', context)
 
@@ -61,9 +67,11 @@ def edit_coding_skill_view(request, coding_skill_id):
     else:
         initial_data = {'name': coding_skill.name} # set initial data for the name field
         form = CodingSkillForm(instance=coding_skill, initial=initial_data)
+        logged_in_user = request.user
         context = {
             'form': form,
             'coding_skill': coding_skill,
+            'logged_in_user': logged_in_user,
         }
         return render(request, 'resume_generator/coding_skill/edit_coding_skill.html', context)
 

@@ -1,5 +1,5 @@
 from django import forms
-from .models import CodingSkill, Tool, Designation, Project
+from .models import CodingSkill, Tool, Designation, Project, Employee
 
 class CodingSkillForm(forms.ModelForm):
     class Meta:
@@ -48,3 +48,20 @@ class ProjectForm(forms.ModelForm):
             raise forms.ValidationError("End date is required for active projects.")
         elif status == 'close' and end_date is not None and end_date < start_date:
             raise forms.ValidationError("End date cannot be before start date.")
+
+class EmployeeForm(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = ['name','designation','professional_summary','coding_skills','tools','employment_status']
+
+class EmployeeProjectMappingForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['projects'].queryset = Project.objects.filter(is_deleted=False)
+    class Meta:
+        model = Employee
+        fields = ['projects']
+        widget={
+            'projects' : forms.CheckboxSelectMultiple(attrs={'class': 'project-checkbox'})
+        }
+

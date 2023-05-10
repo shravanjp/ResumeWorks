@@ -1,0 +1,41 @@
+{% extends 'resume_generator/base.html' %}
+{% block title %}Map To Projects{% endblock %}
+{% block content %}
+
+<style>
+/* .project-checkbox {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.project-checkbox label {
+  display: flex;
+  align-items: center;
+}
+
+.project-checkbox input[type="checkbox"] {
+  margin-right: 5px;
+} */
+
+</style>
+<h1>Map To Projects</h1>
+<form method="post" action="{% url 'map_to_projects' employee.id %}">
+    {% csrf_token %}
+
+    <div class="form-check">
+      
+        <label class="form-check-label">Projects :</label>
+        {{ form.projects }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Map</button>
+</form>
+
+<div id="messages-container">
+    {% for message in messages %}
+    <p class="message">{{ message }}</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

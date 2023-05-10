@@ -5,6 +5,7 @@ from .views.tools_view import *
 from .views.projects_view import *
 from .views.designations_view import *
 from .views.users_view import *
+from .views.employees_view import *
 
 urlpatterns = [
     path('', home_view, name = 'home'),
@@ -34,8 +35,26 @@ urlpatterns = [
     path('projects/edit_project/<int:project_id>/', edit_project_view, name = 'edit_project'),
     path('projects/delete_project/<int:project_id>/', delete_project_view, name = 'delete_project'),
 
-    #Users-HR
-    path('users/', users_list_view, name = 'users_list')
+    #user-HR
+    path('users/', users_list_view, name = 'users_list'),
+
+    #employee
+    path('employees/', employees_list_view, name='employees_list'),
+    path('employees/create_employee/', create_employee_view, name = 'create_employee'),
+    path('employees/edit_employee/<int:employee_id>/', edit_employee_view, name = 'edit_employee'),
+    path('employees/delete_employee/<int:employee_id>/', delete_employee_view, name = 'delete_employee'),
+
+    #mapping
+    path('employees/map_to_projects/', map_employee_to_projects_view, name = 'map_to_projects'),
+    path('employees/map_to_projects/<int:employee_id>/', map_employee_to_projects_view, name = 'map_to_projects'),
+
+    #resume
+    path('employees/view_resume/<int:employee_id>/', employee_resume_view, name = 'view_employee_resume'),
+
+
+
+
+
 
     
     # path('generate-resume/<int:pk>/', views.generate_resume, name='generate_resume'),

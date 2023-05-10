@@ -15,6 +15,7 @@ def projects_list_view(request):
 
 @login_required
 def create_project_view(request):
+    logged_in_user = request.user
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
@@ -29,7 +30,7 @@ def create_project_view(request):
             messages.error(request, form.errors)
     else:
         form = ProjectForm()
-    return render(request, 'resume_generator/project/create_project.html', {'form': form})
+    return render(request, 'resume_generator/project/create_project.html', {'form': form,'logged_in_user': logged_in_user,})
 
 @login_required
 def edit_project_view(request, project_id):
