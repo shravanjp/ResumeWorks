@@ -51,10 +51,10 @@ def edit_tool_view(request, tool_id):
             else:
                 
                 messages.error(request, 'Skill already exists!')
-            return redirect('tools_list')
+            return redirect('create_tool')
         else:
             messages.error(request,"Invalid Form data")
-            return redirect('tools_list')
+            return redirect('create_tool')
 
     else:
         initial_data = {'name': tool.name} # set initial data for the name field

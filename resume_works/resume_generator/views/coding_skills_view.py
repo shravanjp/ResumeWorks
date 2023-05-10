@@ -53,10 +53,10 @@ def edit_coding_skill_view(request, coding_skill_id):
                 messages.success(request, 'Skill updated successfully!')
             else:
                 messages.error(request, 'Skill already exists!')
-            return redirect('coding_skills_list')
+            return redirect('create_coding_skill')
         else:
             messages.error(request,"Invalid Form data")
-            return redirect('coding_skills_list')
+            return redirect('create_coding_skill')
 
     else:
         initial_data = {'name': coding_skill.name} # set initial data for the name field

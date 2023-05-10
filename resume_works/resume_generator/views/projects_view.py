@@ -60,7 +60,7 @@ def edit_project_view(request, project_id):
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
             form.save()
-            return redirect('projects_list')
+            return redirect('create_project')
     else:
         form = ProjectForm(instance=project)
     return render(request, 'resume_generator/project/edit_project.html', {'form': form, 'project': project})
