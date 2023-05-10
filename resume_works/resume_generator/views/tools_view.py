@@ -8,7 +8,8 @@ from ..forms import ToolForm
 @login_required
 def tools_list_view(request):
     tools = Tool.objects.filter(is_deleted=False)
-    return render(request,'resume_generator/tool/tools_list.html',{'tools':tools})
+    logged_in_user = request.user
+    return render(request,'resume_generator/tool/tools_list.html',{'tools':tools,'logged_in_user': logged_in_user,})
 
 @login_required
 def create_tool_view(request):
@@ -28,12 +29,14 @@ def create_tool_view(request):
         else:
             messages.info(request, form.errors)
             messages.error(request, 'Invalid form data!')
-            return render(request, 'resume_generator/tool/create_tool.html', {'form':form})
+            return render(request, 'resume_generator/tool/create_tool.html', {'form':form,'logged_in_user': logged_in_user,})
     else:
         form = ToolForm()
+        logged_in_user = request.user
         context = {
             'form': form,
-            'tools': tools
+            'tools': tools,
+            'logged_in_user': logged_in_user,
         }
         return render(request, 'resume_generator/tool/create_tool.html', context)
 
@@ -59,9 +62,11 @@ def edit_tool_view(request, tool_id):
     else:
         initial_data = {'name': tool.name} # set initial data for the name field
         form = ToolForm(instance=tool, initial=initial_data)
+        logged_in_user = request.user
         context = {
             'form': form,
             'tool': tool,
+            'logged_in_user': logged_in_user,
         }
         return render(request, 'resume_generator/tool/edit_tool.html', context)
 

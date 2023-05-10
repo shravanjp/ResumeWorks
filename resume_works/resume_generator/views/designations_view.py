@@ -4,11 +4,14 @@ from django.contrib import messages
 from ..models import Designation
 from ..forms import DesignationForm
 
-
 @login_required
 def designations_list_view(request):
     designations = Designation.objects.filter(is_deleted=False)
-    return render(request,'resume_generator/designation/designations_list.html',{'designations':designations})
+    logged_in_user = request.user
+    return render(request,'resume_generator/designation/designations_list.html',{
+        'designations':designations,
+        'logged_in_user': logged_in_user,
+    })
 
 @login_required
 def create_designation_view(request):
@@ -31,9 +34,11 @@ def create_designation_view(request):
             return render(request, 'resume_generator/designation/create_designation.html', {'form':form})
     else:
         form = DesignationForm()
+        logged_in_user = request.user
         context = {
             'form': form,
-            'designations': designations
+            'designations': designations,
+            'logged_in_user': logged_in_user,
         }
         return render(request, 'resume_generator/designation/create_designation.html', context)
 
@@ -56,11 +61,13 @@ def edit_designation_view(request, designation_id):
         return redirect('create_designation')
 
     else:
-        initial_data = {'name': designation.name} # set initial data for the name field
+        initial_data = {'name': designation.name} 
         form = DesignationForm(instance=designation, initial=initial_data)
+        logged_in_user = request.user
         context = {
             'form': form,
             'designation': designation,
+            'logged_in_user': logged_in_user,
         }
         return render(request, 'resume_generator/designation/edit_designation.html', context)
 
