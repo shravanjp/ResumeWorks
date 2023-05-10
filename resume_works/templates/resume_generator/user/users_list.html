@@ -1,0 +1,55 @@
+{% extends 'resume_generator/base.html' %}
+{% block title %}Users{% endblock %}
+{% block content %}
+<style>
+    h1 {
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 40px;
+    }
+
+    .container {
+        background-color: #fff;
+        color: #212529;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .btn-primary {
+        background-color: rgb(32, 78, 207);
+        color: #fff;
+        border-color: #fff;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Users</h1>
+        <!-- <button type="button" class="btn btn-success mb-3" onclick="location.href='/tools/create_tool/'">Add
+            Tool</button> -->
+        <ul class="list-group" style="height: 60vh; overflow-y: auto;">
+            {% if users|length == 0 %}
+                <h2>No Tools</h2>
+            {% endif %}
+            {% for user in users %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{user}}
+                <!-- <div> -->
+                    <!-- <form action="#" method="GET" class="d-inline"> -->
+                       
+                        <!-- <button type="submit" class="btn btn-primary me-2">Edit</button>
+                    </form>
+                    <form action="#" method="POST" class="d-inline">
+                   
+                        <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Are you sure?')">Delete</button>
+                    </form> -->
+                <!-- </div> -->
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+</html>
+{% endblock %}

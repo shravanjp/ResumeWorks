@@ -4,6 +4,7 @@ from .views.coding_skills_view import *
 from .views.tools_view import *
 from .views.projects_view import *
 from .views.designations_view import *
+from .views.users_view import *
 
 urlpatterns = [
     path('', home_view, name = 'home'),
@@ -21,6 +22,7 @@ urlpatterns = [
     path('tools/edit_tool/<int:tool_id>/', edit_tool_view, name = 'edit_tool'),
     path('tools/delete_tool/<int:tool_id>/', delete_tool_view, name = 'delete_tool'),
 
+    #designations
     path('designations/', designations_list_view, name='designations_list'),
     path('designations/create_designation/', create_designation_view, name = 'create_designation'),
     path('designations/edit_designation/<int:designation_id>/', edit_designation_view, name = 'edit_designation'),
@@ -31,6 +33,9 @@ urlpatterns = [
     path('projects/create_project/', create_project_view, name = 'create_project'),
     path('projects/edit_project/<int:project_id>/', edit_project_view, name = 'edit_project'),
     path('projects/delete_project/<int:project_id>/', delete_project_view, name = 'delete_project'),
+
+    #Users-HR
+    path('users/', users_list_view, name = 'users_list')
 
     
     # path('generate-resume/<int:pk>/', views.generate_resume, name='generate_resume'),
